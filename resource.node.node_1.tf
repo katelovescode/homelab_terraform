@@ -132,21 +132,6 @@ resource "proxmox_virtual_environment_file" "debian_13" {
   }
 }
 
-# __generated__ by OpenTofu from "proxmox/local:iso/proxmox-ve_9.0-1.iso"
-resource "proxmox_virtual_environment_file" "proxmox_9" {
-  provider = proxmox.node_by_ip
-  content_type   = "iso"
-  datastore_id   = var.node_1.image_datastore
-  file_mode      = null
-  node_name      = var.node_1.name
-  overwrite      = false
-  timeout_upload = null
-  source_file {
-    file_name = "proxmox-ve_9.0-1.iso"
-    path      = "https://enterprise.proxmox.com/iso/proxmox-ve_9.1-1.iso"
-  }
-}
-
 # __generated__ by OpenTofu from "proxmox/local:iso/ubuntu-24.04.3-live-server-amd64.iso"
 resource "proxmox_virtual_environment_file" "ubuntu_24_04_3_live_server_amd64" {
   provider = proxmox.node_by_ip
