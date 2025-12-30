@@ -8,9 +8,11 @@ variable "cluster" {
 
 variable "node_1" {
   type = object({
-    name       = string
-    ip_address = string
-    cidr       = string
+    name            = string
+    ip_address      = string
+    cidr            = string
+    image_datastore = string
+    disk_datastore  = string
   })
   description = "Proxmox node 1 info"
   nullable    = false

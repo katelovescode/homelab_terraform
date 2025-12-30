@@ -101,3 +101,63 @@ resource "proxmox_virtual_environment_firewall_rules" "node_1" {
   node_name    = var.node_1.name
   vm_id        = null
 }
+
+# __generated__ by OpenTofu from "proxmox/local:vztmpl/debian-12-standard_12.12-1_amd64.tar.zst"
+resource "proxmox_virtual_environment_file" "debian_12" {
+  provider = proxmox.node_by_ip
+  content_type   = "vztmpl"
+  datastore_id   = var.node_1.image_datastore
+  file_mode      = null
+  node_name      = var.node_1.name
+  overwrite      = false
+  timeout_upload = null
+  source_file {
+    file_name = "debian-12-standard_12.2-1_amd64.tar.zst"
+    path      = "https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-generic-amd64.qcow2"
+  }
+}
+
+# __generated__ by OpenTofu from "proxmox/local:vztmpl/debian-13-standard_13.1-2_amd64.tar.zst"
+resource "proxmox_virtual_environment_file" "debian_13" {
+  provider = proxmox.node_by_ip
+  content_type   = "vztmpl"
+  datastore_id   = var.node_1.image_datastore
+  file_mode      = null
+  node_name      = var.node_1.name
+  overwrite      = false
+  timeout_upload = null
+  source_file {
+    file_name = "debian-13-standard_13.1-2_amd64.tar.zst"
+    path      = "https://cloud.debian.org/images/cloud/trixie/latest/debian-13-generic-amd64.qcow2"
+  }
+}
+
+# __generated__ by OpenTofu from "proxmox/local:iso/proxmox-ve_9.0-1.iso"
+resource "proxmox_virtual_environment_file" "proxmox_9" {
+  provider = proxmox.node_by_ip
+  content_type   = "iso"
+  datastore_id   = var.node_1.image_datastore
+  file_mode      = null
+  node_name      = var.node_1.name
+  overwrite      = false
+  timeout_upload = null
+  source_file {
+    file_name = "proxmox-ve_9.0-1.iso"
+    path      = "https://enterprise.proxmox.com/iso/proxmox-ve_9.1-1.iso"
+  }
+}
+
+# __generated__ by OpenTofu from "proxmox/local:iso/ubuntu-24.04.3-live-server-amd64.iso"
+resource "proxmox_virtual_environment_file" "ubuntu_24_04_3_live_server_amd64" {
+  provider = proxmox.node_by_ip
+  content_type   = "iso"
+  datastore_id   = var.node_1.image_datastore
+  file_mode      = null
+  node_name      = var.node_1.name
+  overwrite      = false
+  timeout_upload = null
+  source_file {
+    file_name = "ubuntu-24.04.3-live-server-amd64.iso"
+    path      = "https://releases.ubuntu.com/24.04.3/ubuntu-24.04.3-live-server-amd64.iso"
+  }
+}

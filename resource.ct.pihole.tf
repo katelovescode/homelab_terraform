@@ -68,7 +68,10 @@ resource "proxmox_virtual_environment_container" "pihole" {
   }
   operating_system {
     template_file_id = ""
-    type             = "debian"
+    # TODO: This will cause destruction of container, so we need to have ansible
+    # config and backup of the pihole config to do this
+    # template_file_id = join("", [var.node_1.image_datastore, ":", proxmox_virtual_environment_file.debian_13.content_type, "/", proxmox_virtual_environment_file.debian_13.source_file[0].file_name])
+    type = "debian"
   }
 }
 

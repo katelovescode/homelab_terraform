@@ -4,7 +4,7 @@ terraform {
     proxmox = {
       source                = "bpg/proxmox"
       version               = "0.89.0"
-      configuration_aliases = [proxmox.opentofu]
+      configuration_aliases = [proxmox.opentofu, proxmox.node_by_ip]
     }
   }
 }
@@ -24,5 +24,14 @@ provider "proxmox" {
   alias     = "opentofu"
   endpoint  = var.cluster.endpoint
   insecure  = false
+  api_token = var.opentofu_user.api_token
+}
+
+# File upload actions w/o domain name
+
+provider "proxmox" {
+  alias     = "node_by_ip"
+  endpoint  = join("", ["https://", var.node_1.ip_address, ":8006"])
+  insecure  = true
   api_token = var.opentofu_user.api_token
 }
