@@ -37,12 +37,8 @@ resource "proxmox_virtual_environment_container" "pihole" {
     hostname = "pihole"
     ip_config {
       ipv4 {
-        address = "dhcp"
-        gateway = ""
-      }
-      ipv6 {
-        address = "dhcp"
-        gateway = ""
+        address = join("", [var.pihole.ip_address, "/", var.pihole.ip_cidr])
+        gateway = var.dns.gateway
       }
     }
     # TODO: This will cause destruction of container, so we need to have ansible

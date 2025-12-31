@@ -10,6 +10,7 @@ resource "proxmox_virtual_environment_role" "opentofu_role" {
     "Permissions.Modify",
     "Pool.Audit",
     "SDN.Audit",
+    "SDN.Use",
     "Sys.Audit",
     "Sys.Modify",
     "User.Modify",

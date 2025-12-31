@@ -32,16 +32,6 @@ provider "proxmox" {
 provider "proxmox" {
   alias     = "node_by_ip"
   endpoint  = join("", ["https://", var.node_1.ip_address, ":8006"])
-  insecure  = false
+  insecure  = true
   api_token = var.opentofu_user.api_token
-}
-
-# Root actions w/o domain name
-
-provider "proxmox" {
-  alias     = "root_node_by_ip"
-  endpoint  = join("", ["https://", var.node_1.ip_address, ":8006"])
-  insecure = false
-  # username = var.root_user.username
-  # password = var.root_user.password
 }

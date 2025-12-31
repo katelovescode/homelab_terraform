@@ -80,7 +80,7 @@ resource "proxmox_virtual_environment_user_token" "homeassistant_user_token" {
 
 # __generated__ by OpenTofu
 resource "proxmox_virtual_environment_vm" "homeassistant" {
-  provider                             = proxmox.root_node_by_ip
+  provider                             = proxmox
   acpi                                 = true
   bios                                 = "ovmf"
   boot_order                           = ["scsi0"]
@@ -99,6 +99,7 @@ resource "proxmox_virtual_environment_vm" "homeassistant" {
   reboot                               = false
   reboot_after_update                  = true
   scsi_hardware                        = "virtio-scsi-pci"
+  started                              = true
   stop_on_destroy                      = false
   tablet_device                        = false
   tags                                 = ["community-script"]
@@ -148,7 +149,8 @@ resource "proxmox_virtual_environment_vm" "homeassistant" {
   initialization {
     ip_config {
       ipv4 {
-        address = var.homeassistant.ip_address
+        address = join("", [var.homeassistant.ip_address, "/", var.homeassistant.ip_cidr])
+        gateway = var.dns.gateway
       }
     }
 

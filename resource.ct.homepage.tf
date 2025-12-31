@@ -93,8 +93,8 @@ resource "proxmox_virtual_environment_container" "homepage" {
     hostname = "homepage"
     ip_config {
       ipv4 {
-        address = "dhcp"
-        gateway = ""
+        address = join("", [var.homepage.ip_address, "/", var.homepage.ip_cidr])
+        gateway = var.dns.gateway
       }
     }
     # TODO: This will cause destruction of container, so we need to have ansible

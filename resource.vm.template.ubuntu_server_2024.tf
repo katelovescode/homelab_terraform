@@ -1,6 +1,6 @@
 # __generated__ by OpenTofu
 resource "proxmox_virtual_environment_vm" "ubuntu_server_2024_template" {
-  provider                             = proxmox.root_node_by_ip
+  provider                             = proxmox
   acpi                                 = true
   bios                                 = "seabios"
   boot_order                           = ["scsi0", "net0"]
@@ -87,7 +87,8 @@ resource "proxmox_virtual_environment_vm" "ubuntu_server_2024_template" {
   initialization {
     ip_config {
       ipv4 {
-        address = var.ubuntu_server_2024_template.ip_address
+        address = join("", [var.ubuntu_server_2024_template.ip_address, "/", var.ubuntu_server_2024_template.ip_cidr])
+        gateway = var.dns.gateway
       }
     }
 

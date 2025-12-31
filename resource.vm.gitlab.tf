@@ -1,6 +1,6 @@
 # __generated__ by OpenTofu
 resource "proxmox_virtual_environment_vm" "gitlab" {
-  provider                             = proxmox.root_node_by_ip
+  provider                             = proxmox
   acpi                                 = true
   bios                                 = "seabios"
   boot_order                           = ["scsi0", "net0"]
@@ -19,6 +19,7 @@ resource "proxmox_virtual_environment_vm" "gitlab" {
   reboot                               = false
   reboot_after_update                  = true
   scsi_hardware                        = "virtio-scsi-single"
+  started                              = true
   stop_on_destroy                      = false
   tablet_device                        = true
   tags                                 = []
@@ -86,7 +87,8 @@ resource "proxmox_virtual_environment_vm" "gitlab" {
   initialization {
     ip_config {
       ipv4 {
-        address = var.gitlab.ip_address
+        address = join("", [var.gitlab.ip_address, "/", var.gitlab.ip_cidr])
+        gateway = var.dns.gateway
       }
     }
 

@@ -1,6 +1,6 @@
 # __generated__ by OpenTofu
 resource "proxmox_virtual_environment_vm" "nginx_proxy_manager" {
-  provider                             = proxmox.root_node_by_ip
+  provider                             = proxmox
   acpi                                 = true
   bios                                 = "seabios"
   boot_order                           = ["scsi0", "net0"]
@@ -19,6 +19,7 @@ resource "proxmox_virtual_environment_vm" "nginx_proxy_manager" {
   reboot                               = false
   reboot_after_update                  = true
   scsi_hardware                        = "virtio-scsi-single"
+  started                              = true
   stop_on_destroy                      = false
   tablet_device                        = true
   tags                                 = []
@@ -86,7 +87,8 @@ resource "proxmox_virtual_environment_vm" "nginx_proxy_manager" {
   initialization {
     ip_config {
       ipv4 {
-        address = var.nginx_proxy_manager.ip_address
+        address = join("", [var.nginx_proxy_manager.ip_address, "/", var.nginx_proxy_manager.ip_cidr])
+        gateway = var.dns.gateway
       }
     }
 

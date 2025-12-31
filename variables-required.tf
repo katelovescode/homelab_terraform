@@ -104,6 +104,7 @@ variable "pihole" {
   type = object({
     ct_id      = string
     ip_address = string
+    ip_cidr    = string
     admin_user = object({
       username = string
       password = string
@@ -117,6 +118,7 @@ variable "homepage" {
   type = object({
     ct_id      = string
     ip_address = string
+    ip_cidr    = string
     admin_user = object({
       username = string
       password = string
@@ -130,6 +132,7 @@ variable "ubuntu_server_2024_template" {
   type = object({
     vm_id      = string
     ip_address = string
+    ip_cidr    = string
     admin_user = object({
       password = string
       username = string
@@ -143,6 +146,7 @@ variable "bookstack" {
   type = object({
     vm_id      = string
     ip_address = string
+    ip_cidr    = string
     admin_user = object({
       username = string
       password = string
@@ -156,6 +160,7 @@ variable "nginx_proxy_manager" {
   type = object({
     vm_id      = string
     ip_address = string
+    ip_cidr    = string
     admin_user = object({
       username = string
       password = string
@@ -169,6 +174,7 @@ variable "gitlab" {
   type = object({
     vm_id      = string
     ip_address = string
+    ip_cidr    = string
     admin_user = object({
       username = string
       password = string
@@ -182,6 +188,7 @@ variable "homeassistant" {
   type = object({
     vm_id      = string
     ip_address = string
+    ip_cidr    = string
     admin_user = object({
       username = string
     })
