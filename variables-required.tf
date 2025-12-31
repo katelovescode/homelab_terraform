@@ -102,8 +102,10 @@ variable "dns" {
 
 variable "pihole" {
   type = object({
-    ct_id = string
+    ct_id      = string
+    ip_address = string
     admin_user = object({
+      username = string
       password = string
     })
   })
@@ -113,8 +115,10 @@ variable "pihole" {
 
 variable "homepage" {
   type = object({
-    ct_id = string
+    ct_id      = string
+    ip_address = string
     admin_user = object({
+      username = string
       password = string
     })
   })
@@ -124,7 +128,8 @@ variable "homepage" {
 
 variable "ubuntu_server_2024_template" {
   type = object({
-    vm_id = string
+    vm_id      = string
+    ip_address = string
     admin_user = object({
       password = string
       username = string
@@ -136,10 +141,11 @@ variable "ubuntu_server_2024_template" {
 
 variable "bookstack" {
   type = object({
-    vm_id = string
+    vm_id      = string
+    ip_address = string
     admin_user = object({
-      password = string
       username = string
+      password = string
     })
   })
   description = "Bookstack VM information"
@@ -148,10 +154,11 @@ variable "bookstack" {
 
 variable "nginx_proxy_manager" {
   type = object({
-    vm_id = string
+    vm_id      = string
+    ip_address = string
     admin_user = object({
-      password = string
       username = string
+      password = string
     })
   })
   description = "NGINX Proxy Manager VM information"
@@ -160,10 +167,11 @@ variable "nginx_proxy_manager" {
 
 variable "gitlab" {
   type = object({
-    vm_id = string
+    vm_id      = string
+    ip_address = string
     admin_user = object({
-      password = string
       username = string
+      password = string
     })
   })
   description = "Gitlab VM information"
@@ -172,9 +180,9 @@ variable "gitlab" {
 
 variable "homeassistant" {
   type = object({
-    vm_id = string
+    vm_id      = string
+    ip_address = string
     admin_user = object({
-      password = string
       username = string
     })
   })

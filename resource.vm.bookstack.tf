@@ -1,6 +1,6 @@
 # __generated__ by OpenTofu
 resource "proxmox_virtual_environment_vm" "bookstack" {
-  provider                             = proxmox.opentofu
+  provider                             = proxmox
   acpi                                 = true
   bios                                 = "seabios"
   boot_order                           = ["scsi0", "net0"]
@@ -38,6 +38,7 @@ resource "proxmox_virtual_environment_vm" "bookstack" {
     type    = "virtio"
   }
   cpu {
+    affinity     = "0-1"
     architecture = ""
     cores        = 2
     flags        = []
@@ -52,7 +53,7 @@ resource "proxmox_virtual_environment_vm" "bookstack" {
     aio               = "io_uring"
     backup            = true
     cache             = "none"
-    datastore_id      = "local-lvm"
+    datastore_id      = var.node_1.disk_datastore
     discard           = "ignore"
     file_format       = "raw"
     file_id           = ""
@@ -65,10 +66,41 @@ resource "proxmox_virtual_environment_vm" "bookstack" {
     size              = 64
     ssd               = false
   }
+  disk {
+    aio               = "io_uring"
+    backup            = false
+    cache             = "none"
+    datastore_id      = var.node_1.image_datastore
+    discard           = "ignore"
+    file_format       = "raw"
+    file_id           = ""
+    import_from       = ""
+    interface         = "ide2"
+    iothread          = false
+    path_in_datastore = join("", [proxmox_virtual_environment_file.ubuntu_24_04_3_live_server_amd64.content_type, "/", proxmox_virtual_environment_file.ubuntu_24_04_3_live_server_amd64.source_file[0].file_name])
+    replicate         = true
+    serial            = ""
+    size              = 3
+    ssd               = false
+  }
+  initialization {
+    ip_config {
+      ipv4 {
+        address = var.bookstack.ip_address
+      }
+    }
+
+    user_account {
+      keys     = [var.admin_user.public_key]
+      username = var.bookstack.admin_user.username
+      password = var.bookstack.admin_user.password
+    }
+  }
   memory {
-    dedicated = 4096
-    floating  = 0
-    shared    = 0
+    dedicated      = 4096
+    floating       = 0
+    keep_hugepages = false
+    shared         = 0
   }
   network_device {
     bridge       = "vmbr0"

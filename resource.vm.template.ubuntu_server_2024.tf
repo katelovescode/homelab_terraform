@@ -39,6 +39,7 @@ resource "proxmox_virtual_environment_vm" "ubuntu_server_2024_template" {
     type    = "virtio"
   }
   cpu {
+    affinity     = "0-1"
     architecture = ""
     cores        = 2
     flags        = []
@@ -53,7 +54,7 @@ resource "proxmox_virtual_environment_vm" "ubuntu_server_2024_template" {
     aio               = "io_uring"
     backup            = true
     cache             = "none"
-    datastore_id      = "local-lvm"
+    datastore_id      = var.node_1.disk_datastore
     discard           = "ignore"
     file_format       = "raw"
     file_id           = ""
@@ -66,10 +67,41 @@ resource "proxmox_virtual_environment_vm" "ubuntu_server_2024_template" {
     size              = 64
     ssd               = false
   }
+  disk {
+    aio               = "io_uring"
+    backup            = false
+    cache             = "none"
+    datastore_id      = var.node_1.image_datastore
+    discard           = "ignore"
+    file_format       = "raw"
+    file_id           = ""
+    import_from       = ""
+    interface         = "ide2"
+    iothread          = false
+    path_in_datastore = join("", [proxmox_virtual_environment_file.ubuntu_24_04_3_live_server_amd64.content_type, "/", proxmox_virtual_environment_file.ubuntu_24_04_3_live_server_amd64.source_file[0].file_name])
+    replicate         = true
+    serial            = ""
+    size              = 3
+    ssd               = false
+  }
+  initialization {
+    ip_config {
+      ipv4 {
+        address = var.ubuntu_server_2024_template.ip_address
+      }
+    }
+
+    user_account {
+      keys     = [var.admin_user.public_key]
+      username = var.ubuntu_server_2024_template.admin_user.username
+      password = var.ubuntu_server_2024_template.admin_user.password
+    }
+  }
   memory {
-    dedicated = 4096
-    floating  = 0
-    shared    = 0
+    dedicated      = 4096
+    floating       = 0
+    keep_hugepages = false
+    shared         = 0
   }
   network_device {
     bridge       = "vmbr0"

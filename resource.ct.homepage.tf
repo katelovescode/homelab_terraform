@@ -83,7 +83,7 @@ resource "proxmox_virtual_environment_container" "homepage" {
   }
   disk {
     acl           = false
-    datastore_id  = "local-lvm"
+    datastore_id  = var.node_1.disk_datastore
     mount_options = []
     quota         = false
     replicate     = false

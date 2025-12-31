@@ -132,7 +132,7 @@ resource "proxmox_virtual_environment_vm" "homeassistant" {
     aio               = "io_uring"
     backup            = true
     cache             = "none"
-    datastore_id      = "local-lvm"
+    datastore_id      = var.node_1.disk_datastore
     discard           = "on"
     file_format       = "raw"
     file_id           = ""
@@ -145,8 +145,20 @@ resource "proxmox_virtual_environment_vm" "homeassistant" {
     size              = 32
     ssd               = true
   }
+  initialization {
+    ip_config {
+      ipv4 {
+        address = var.homeassistant.ip_address
+      }
+    }
+
+    user_account {
+      keys     = [var.admin_user.public_key]
+      username = var.homeassistant.admin_user.username
+    }
+  }
   efi_disk {
-    datastore_id      = "local-lvm"
+    datastore_id      = var.node_1.disk_datastore
     file_format       = "raw"
     pre_enrolled_keys = false
     type              = "4m"

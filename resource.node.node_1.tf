@@ -1,7 +1,7 @@
 # __generated__ by OpenTofu from "proxmox"
 resource "proxmox_virtual_environment_dns" "node_1" {
   provider  = proxmox.opentofu
-  domain    = "local"
+  domain    = var.node_1.image_datastore
   node_name = var.node_1.name
   servers   = [var.dns.gateway]
 }
@@ -104,7 +104,7 @@ resource "proxmox_virtual_environment_firewall_rules" "node_1" {
 
 # __generated__ by OpenTofu from "proxmox/local:vztmpl/debian-12-standard_12.12-1_amd64.tar.zst"
 resource "proxmox_virtual_environment_file" "debian_12" {
-  provider = proxmox.node_by_ip
+  provider       = proxmox.node_by_ip
   content_type   = "vztmpl"
   datastore_id   = var.node_1.image_datastore
   file_mode      = null
@@ -119,7 +119,7 @@ resource "proxmox_virtual_environment_file" "debian_12" {
 
 # __generated__ by OpenTofu from "proxmox/local:vztmpl/debian-13-standard_13.1-2_amd64.tar.zst"
 resource "proxmox_virtual_environment_file" "debian_13" {
-  provider = proxmox.node_by_ip
+  provider       = proxmox.node_by_ip
   content_type   = "vztmpl"
   datastore_id   = var.node_1.image_datastore
   file_mode      = null
@@ -134,7 +134,7 @@ resource "proxmox_virtual_environment_file" "debian_13" {
 
 # __generated__ by OpenTofu from "proxmox/local:iso/ubuntu-24.04.3-live-server-amd64.iso"
 resource "proxmox_virtual_environment_file" "ubuntu_24_04_3_live_server_amd64" {
-  provider = proxmox.node_by_ip
+  provider       = proxmox.node_by_ip
   content_type   = "iso"
   datastore_id   = var.node_1.image_datastore
   file_mode      = null
