@@ -1,6 +1,6 @@
 # __generated__ by OpenTofu
 resource "proxmox_virtual_environment_vm" "ubuntu_server_2024_template" {
-  provider                             = proxmox.opentofu
+  provider                             = proxmox.root_node_by_ip
   acpi                                 = true
   bios                                 = "seabios"
   boot_order                           = ["scsi0", "net0"]

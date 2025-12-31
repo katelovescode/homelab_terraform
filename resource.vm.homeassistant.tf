@@ -80,7 +80,7 @@ resource "proxmox_virtual_environment_user_token" "homeassistant_user_token" {
 
 # __generated__ by OpenTofu
 resource "proxmox_virtual_environment_vm" "homeassistant" {
-  provider                             = proxmox.opentofu
+  provider                             = proxmox.root_node_by_ip
   acpi                                 = true
   bios                                 = "ovmf"
   boot_order                           = ["scsi0"]

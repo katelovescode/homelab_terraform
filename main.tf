@@ -4,7 +4,7 @@ terraform {
     proxmox = {
       source                = "bpg/proxmox"
       version               = "0.89.0"
-      configuration_aliases = [proxmox.opentofu, proxmox.node_by_ip]
+      configuration_aliases = [proxmox.opentofu, proxmox.node_by_ip, proxmox.root_node_by_ip]
     }
   }
 }
@@ -14,8 +14,8 @@ terraform {
 provider "proxmox" {
   endpoint = var.cluster.endpoint
   insecure = false
-  username = var.root_user.username
-  password = var.root_user.password
+  # username = var.root_user.username
+  # password = var.root_user.password
 }
 
 # OpenTofu USER ACTIONS
@@ -32,6 +32,16 @@ provider "proxmox" {
 provider "proxmox" {
   alias     = "node_by_ip"
   endpoint  = join("", ["https://", var.node_1.ip_address, ":8006"])
-  insecure  = true
+  insecure  = false
   api_token = var.opentofu_user.api_token
+}
+
+# Root actions w/o domain name
+
+provider "proxmox" {
+  alias     = "root_node_by_ip"
+  endpoint  = join("", ["https://", var.node_1.ip_address, ":8006"])
+  insecure = false
+  # username = var.root_user.username
+  # password = var.root_user.password
 }
